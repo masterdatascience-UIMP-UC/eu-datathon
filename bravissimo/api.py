@@ -31,7 +31,7 @@ def index():
     return flask.jsonify(links)
 
 
-@API.route("/nearest/")
+@API.route("/v1/nearest/")
 def get_data():
     """Return coordinates of nearest free WiFi networks.
 
