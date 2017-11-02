@@ -47,10 +47,18 @@ def get_data():
 
     :returns: GeoJSON containing the coordinates.
     """
+
+    latitude = flask.request.args.get('lat')
+    longitude = flask.request.args.get('long')
+    radius = flask.request.args.get('radius', 500.0)
+
+    if not (latitude and longitude):
+        flask.abort(400, 'error, you must pass a latitude and longitude')
+
     try:
-        latitude = float(flask.request.args.get('lat'))
-        longitude = float(flask.request.args.get('long'))
-        radius = float(flask.request.args.get('radius', 500.0))
+        latitude = float(latitude)
+        longitude = float(longitude)
+        radius = float(radius)
     except:
         flask.abort(400, 'latitude, longitude and radius must be numbers!')
 
