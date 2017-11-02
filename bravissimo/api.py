@@ -11,10 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
-import os.path
-
 import flask
+
+import coordinates
 
 API = flask.Flask("bravissimo", static_folder=None)
 
@@ -62,10 +61,8 @@ def get_data():
     except:
         flask.abort(400, 'latitude, longitude and radius must be numbers!')
 
-    f = os.path.join(os.path.dirname(__file__), "sample.json")
-    with open(f) as data_file:
-        json_data = json.load(data_file)
-    return flask.jsonify(json_data)
+    data = coordinates.get_nearest_coordinates(latitude, longitude, radius)
+    return flask.jsonify(data)
 
 
 @API.errorhandler(404)
